@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+    environment:
+      - VITE_API_URL=http://api:5055  # Change this to use service name
+      - NODE_ENV=production
+    volumes:
+      - ./front:/app
+      - /app/node_modules
+    networks:
+      - app-network
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5056:5055"  # Make sure this port is what you intend to expose
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db  # Change this to use service name
+      - DB_USER=postgres
+      - DB_PASS=postgres
+      - DB_NAME=barakaservice
+      - DB_PORT=5432
+      - PORT=5055
+      - FRONTEND_URL=http://172.21.0.4:3000
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - app-network
+    command: ["node", "dist/app.js"] 
+
+  db:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=barakaservice
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
