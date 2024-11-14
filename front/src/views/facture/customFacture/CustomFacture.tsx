@@ -10,6 +10,7 @@ import './customFact.css'
 import { useLocation } from 'react-router-dom';
 import FactureService from '../../../ApiServices/FactureService';
 import ApiUrls from '../../../ApiUrl/ApiUrls';
+import Societe from '../../../entities/Societe';
 
 
 interface LigneFacture {
@@ -24,11 +25,7 @@ interface LigneFacture {
 }
 
 interface FactureCmpProps {
-  societe: {
-    nom: string;
-    adresse: string;
-    tel: string;
-  };
+  societe: Societe;
 
   // totals : {
   //   montant_HT: number,
@@ -73,7 +70,6 @@ const FactureCmp: React.FC<FactureCmpProps> = ({ societe, children }) => {
 
   
   const handleEditClick = (index: number, item: LigneFacture) => {
-    console.log(item)
     setEditIndex(index);
     setEditedItem({ ...item });
   };
@@ -105,9 +101,6 @@ const FactureCmp: React.FC<FactureCmpProps> = ({ societe, children }) => {
   };
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>)=> {
-    console.log(e.target.value);
-    // const date = new Date(e.target.value);
-    // const dateString = date.toISOString().split('T')[0];
     setDateFacture(e.target.value);
   }
 
@@ -118,7 +111,6 @@ const FactureCmp: React.FC<FactureCmpProps> = ({ societe, children }) => {
   
   useEffect(()=>{
     calculateTotals();
-    console.log(ligneFactureList)
     if(mode != "create" && factureFinal){
       const dateObject = factureFinal.date_facture.split('T')[0];
       setDateFacture(dateObject)
@@ -135,7 +127,7 @@ const FactureCmp: React.FC<FactureCmpProps> = ({ societe, children }) => {
               <li><strong>Societe :</strong> {societe.nom}</li>
               <li><strong>Adresse :</strong> {societe.adresse}</li>
               <li><strong>Tel :</strong> {societe.tel}</li>
-              <li><strong>Code TVA :</strong> {}</li>
+              <li><strong>Code TVA :</strong> {societe.codetva}</li>
               <li className='mt-2'>
                 <img
                   width="150px"
@@ -197,7 +189,6 @@ const FactureCmp: React.FC<FactureCmpProps> = ({ societe, children }) => {
           </thead>
           <tbody>
             {ligneFactureList?.map((item, index) => {
-              console.log(item)
               return <tr key={index}>
                 <td className='col-number has-letter'>{index + 1}</td>
                 <td  className="last-column has-letter">{item.reference}</td>

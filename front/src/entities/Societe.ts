@@ -3,6 +3,7 @@ interface Societe {
     nom: string;
     tel: string;
     adresse: string;
+    codetva: number;
 }
 
 export default Societe;

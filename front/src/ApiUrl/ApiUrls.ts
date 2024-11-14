@@ -11,7 +11,7 @@ interface ApiUrlsIn {
     readonly AUTH : string;
 }
 
-const url = "http://localhost:5056/";
+const url = "http://localhost:5055/";
 
 const ApiUrls: ApiUrlsIn = {
     ARTICLE : url + "api/articles",

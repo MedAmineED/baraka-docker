@@ -52,11 +52,8 @@ const CustomModal: React.FC<CustomModalProps> = ({ title, onSave, textButton, ch
           {children}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="outline-secondary" size="sm" onClick={handleClose}>
-            Fermer
-          </Button>
           <Button variant="primary" size="sm" onClick={handleSave}>
-            Enregistrer
+            OK
           </Button>
         </Modal.Footer>
       </Modal>

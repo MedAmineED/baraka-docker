@@ -53,7 +53,6 @@ const FactureEditable: React.FC = () => {
    
   const saveUpdates = async()=> {
     try {
-      console.log(factureFinal)
       const response = await FactureService.UpdateFacture(`${ApiUrls.FACTURE}`, id, factureFinal);
       navigate('/showfact', { state : {id, mode : "show"} })
     }

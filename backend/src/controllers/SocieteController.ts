@@ -16,7 +16,10 @@ export const createSociete = async (req: Request, res: Response) => {
 // Get all Societes
 export const getAllSocietes = async (req: Request, res: Response) => {
     try {
-        const societes = await Societe.findAll();
+        const societes = await Societe.findAll({
+            raw: true
+        });
+        console.log(societes)
         res.status(200).json(societes);
     } catch (error) {
         console.log(error);
@@ -27,7 +30,9 @@ export const getAllSocietes = async (req: Request, res: Response) => {
 // Get a single Societe by ID
 export const getSocieteById = async (req: Request, res: Response) => {
     try {
-        const societe = await Societe.findByPk(req.params.id);
+        const societe = await Societe.findByPk(req.params.id, {
+            raw: true
+        });
         if (societe) {
             res.status(200).json(societe);
         } else {

@@ -1,5 +1,7 @@
 import axios from "axios";
 import Paiement from "src/entities/Paiement";
+import axiosInstance from '../utils/axios';
+
 
 interface GetType {
     totalCount: number;
@@ -10,7 +12,7 @@ class PaiementService {
 
     async GetSum(endpoint: string, demId: number): Promise<number> {
         try {
-            const response = await axios.get<number>(`${endpoint}/sum/${demId}`, {
+            const response = await axiosInstance.get<number>(`${endpoint}/sum/${demId}`, {
                 headers: {
                     Authorization: `Bearer token`,
                 },
@@ -24,7 +26,7 @@ class PaiementService {
 
     async AddTimbreFiscal(endpoint: string, demId: number, prixFinal : number): Promise<number> {
         try {
-            const response = await axios.post<number>(`${endpoint}/addtimbre/${demId}`, {prix_ttc : prixFinal}, {
+            const response = await axiosInstance.post<number>(`${endpoint}/addtimbre/${demId}`, {prix_ttc : prixFinal}, {
                 headers: {
                     Authorization: `Bearer token`,
                 },
@@ -39,7 +41,7 @@ class PaiementService {
     async PaiementOperation(endpoint: string, demId: number, prixFinale: number, paiement : Paiement): Promise<number> {
         try {
             await this.AddTimbreFiscal(endpoint, demId, prixFinale);
-            const response = await axios.post<number>(`${endpoint}/paimentoperation/${demId}`, paiement, {
+            const response = await axiosInstance.post<number>(`${endpoint}/paimentoperation/${demId}`, paiement, {
                 headers: {
                     Authorization: `Bearer token`,
                 },
@@ -53,7 +55,7 @@ class PaiementService {
 
     async GetListPaiements(endpoint: string, demId: number): Promise<Paiement[]> {
         try {
-            const response = await axios.get<Paiement[]>(`${endpoint}/${demId}`, {
+            const response = await axiosInstance.get<Paiement[]>(`${endpoint}/${demId}`, {
                 headers: {
                     Authorization: `Bearer token`,
                 },
@@ -67,7 +69,7 @@ class PaiementService {
 
     async GetPaiementById(endpoint: string, id: number): Promise<Paiement> {
         try {
-            const response = await axios.get<Paiement>(`${endpoint}/${id}`, {
+            const response = await axiosInstance.get<Paiement>(`${endpoint}/${id}`, {
                 headers: {
                     Authorization: `Bearer token`,
                 },
@@ -81,7 +83,7 @@ class PaiementService {
 
     async AddPaiement(endpoint: string, paiement: Paiement): Promise<Paiement> {
         try {
-            const response = await axios.post<Paiement>(endpoint, paiement, {
+            const response = await axiosInstance.post<Paiement>(endpoint, paiement, {
                 headers: {
                     Authorization: `Bearer token`,
                     'Content-Type': 'application/json',
@@ -96,7 +98,7 @@ class PaiementService {
 
     async UpdatePaiement(endpoint: string, id: number, paiement: Paiement): Promise<Paiement> {
         try {
-            const response = await axios.put<Paiement>(`${endpoint}/${id}`, paiement, {
+            const response = await axiosInstance.put<Paiement>(`${endpoint}/${id}`, paiement, {
                 headers: {
                     Authorization: `Bearer token`,
                     'Content-Type': 'application/json',
@@ -111,7 +113,7 @@ class PaiementService {
 
     async DeletePaiement(endpoint: string, id: number): Promise<Paiement> {
         try {
-            const response = await axios.delete<Paiement>(`${endpoint}/${id}`, {
+            const response = await axiosInstance.delete<Paiement>(`${endpoint}/${id}`, {
                 headers: {
                     Authorization: `Bearer token`,
                     'Content-Type': 'application/json',

@@ -38,7 +38,6 @@ const MainSelectedContext: React.FC<MainSelectedContextProps> = ({children})=> {
 
     //------- add to ligneDemande
     const transformFromItemToLigneDemande = (item: Item): LigneDemande | void => {
-        console.log(item)
         let ligne: LigneDemande | null = null;
      
         // Check if the item is a service
@@ -112,9 +111,7 @@ const MainSelectedContext: React.FC<MainSelectedContextProps> = ({children})=> {
      }
     }
     const removeFromListLigneDemandeXbutton = (item: LigneDemande)=>{
-        console.log(item)
         setLigneDemandeListe(prevItems => prevItems.filter(i =>{
-            console.log(i.element + '==' + item.element)
             return !(i.element == item.element && i.type == item.type);
             }));
     };

@@ -11,7 +11,7 @@ import {
 
 
 @Table({ timestamps: false, tableName: "societe", modelName: "Societe" })
-class Societe extends Model {
+class Societe extends Model { 
     @PrimaryKey
     @AutoIncrement
     @Column({
@@ -36,6 +36,16 @@ class Societe extends Model {
         allowNull: true,
     })
     declare tel: string;
+
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: true,
+        get() {
+            const rawValue = this.getDataValue('codetva');
+            return rawValue === null ? null : parseInt(rawValue.toString(), 10);
+        }
+    })
+    declare codetva: number;
 
     @CreatedAt
     declare createdAt: Date;

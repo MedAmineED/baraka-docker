@@ -58,7 +58,7 @@ const initialFormData: DemandeServiceEntity = {
 const DemandeService: FC = () => {
 
   const context = useContext(SelectedItmsContext);
-  const  { ligneDemandeListe, totals, reset } = context;
+  const  { ligneDemandeListe, totals, reset, setTotals } = context;
   const [formData, setFormData] = useState<DemandeServiceEntity>(initialFormData);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [alertMessage, setAlertMessage] = useState<{
@@ -131,6 +131,14 @@ const DemandeService: FC = () => {
     // Update formData when ligneDemandeArr changes
     if(ligneDemandeListe.length > 0){
       setFormData((prevData) => ({...prevData, prix_ttc: parseFloat((prevData.prix_ttc).toFixed(3)), lignedemande: ligneDemandeListe }));
+    }
+    if(ligneDemandeListe.length == 0){
+      setTotals({
+        montant_HT: 0,
+        remise_total: 0,
+        montant_TVA: 0,
+        montant_TTC: 0,
+    });
     }
   },[ligneDemandeListe]);
 

@@ -8,29 +8,13 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@assets": path.resolve(__dirname, "./src/assets"),
+      "@components": path.resolve(__dirname, "./src/components"),
+      "@views": path.resolve(__dirname, "./src/views"),
     },
-  },
-  build: {
-    assetsInlineLimit: 0,
-    output: {
-      manualChunks: {
-        vendor: ['react', 'react-dom'], // Split large libraries
-      },
-    },
-    manualChunks: {
-      vendor: ['react', 'react-dom'], // Split large libraries
-    },
-    chunkSizeWarningLimit: 2000,
   },
   server: {
-    fs: {
-      allow: ['src', 'node_modules'],
-    },
-    headers: {
-      'Content-Security-Policy': "script-src 'self';"
-    },
-    port: 3000
+    port: 3000,
+    open: true,
   },
-  
 })

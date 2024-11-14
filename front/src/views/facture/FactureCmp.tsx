@@ -84,8 +84,7 @@ const FactureCmp: React.FC = () => {
         .reduce((sum, item) => sum + (item.remise * item.quantite), 0).toFixed(3));
       const taxTotal = parseFloat((demandeService.ligneDemandes)
         .reduce((sum, item) => sum + (item.prix * (item.tva / 100) * item.quantite), 0).toFixed(3));
-  
-        console.log('totals is created ')
+        
       setTotals({
         subtotal,
         remiseTotal,
@@ -286,7 +285,7 @@ doc.save(`Facture_${1}_2024.pdf`);
               <li><strong>Societe :</strong> {societe.nom}</li>
               <li><strong>Adresse :</strong> {societe.adresse}</li>
               <li><strong>Tel :</strong> {societe.tel}</li>
-              <li><strong>Code TVA :</strong> {}</li>
+              <li><strong>Code TVA :</strong> {societe.codetva}</li>
               <li className='mt-2'>
                 <img
                   width="150px"

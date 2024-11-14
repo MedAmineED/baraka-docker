@@ -111,50 +111,51 @@ const ListeArticles: FC = () => {
 
   const validateArticle = (article: Article): string | null => {
     if (typeof article.identification !== "string" || article.identification.trim() === "") {
-      return "Identification must be a non-empty string.";
+      return "L'identification doit être une chaîne non vide.";
     }
   
     if (typeof article.designation !== "string" || article.designation.trim() === "") {
-      return "Designation must be a non-empty string.";
+      return "La désignation doit être une chaîne non vide.";
     }
   
     const qte = Number(article.qte);
     if (isNaN(qte) || qte < 0) {
-      return "Quantity must be a non-negative number.";
+      return "La quantité doit être un nombre non négatif.";
     }
   
     const qte_min = Number(article.qte_min);
     if (isNaN(qte_min) || qte_min < 0) {
-      return "Minimum quantity must be a non-negative number.";
+      return "La quantité minimale doit être un nombre non négatif.";
     }
   
     const qte_max = Number(article.qte_max);
     if (isNaN(qte_max) || qte_max < 0) {
-      return "Maximum quantity must be a non-negative number.";
+      return "La quantité maximale doit être un nombre non négatif.";
     }
-   
+  
     const prix_achat = Number(article.prix_achat);
     if (isNaN(prix_achat) || prix_achat < 0) {
-      return "Purchase price must be a non-negative number.";
+      return "Le prix d'achat doit être un nombre non négatif.";
     }
   
     const prix_vente = Number(article.prix_vente);
     if (isNaN(prix_vente) || prix_vente < 0) {
-      return "Sale price must be a non-negative number.";
+      return "Le prix de vente doit être un nombre non négatif.";
     }
   
     const tva = Number(article.tva);
     if (isNaN(tva) || tva < 0) {
-      return "VAT must be a non-negative number.";
+      return "La TVA doit être un nombre non négatif.";
     }
   
     const annee = Number(article.annee);
     if (isNaN(annee) || annee < 1900 || annee > new Date().getFullYear()) {
-      return "Year must be a valid year.";
+      return "L'année doit être une année valide.";
     }
   
     return null;
   };
+  
    
 
   const editArticle = async (id: number, article: Article) : Promise<void> => {

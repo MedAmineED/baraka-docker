@@ -19,16 +19,13 @@ const InputModal: React.FC<InputModalProps> = ({ title, inputFields, onSave, tex
 
 
   const handleChange = (controlId: string, value: any) => {
-              console.log("from handle change ",formData);
               setFormData((prev) => ({ ...prev, [controlId]: value }));
   };
 
   
   const handleSave = async () => {
-    console.log(formData);
     try {
         await onSave(formData);
-        console.log(formData)
     }catch(err) {
         console.log(err);
     }
